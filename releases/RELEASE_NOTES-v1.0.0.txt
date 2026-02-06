@@ -1,0 +1,49 @@
+AutoCAD 2026 Mac Launcher v1.0.0
+================================
+
+Release Date: 2026-02-06
+
+What's New:
+-----------
+- Initial release
+- AutoCAD 2026 Launcher with license server management
+- Kill AutoCAD for emergency process termination
+- Password manager with auto-save
+- Duplicate process detection and cleanup
+- Health monitoring and retry logic
+
+Downloads:
+----------
+1. AutoCAD-2026-Launcher-v1.0.0.zip (178 KB)
+   - Launcher app only
+   
+2. Kill-AutoCAD-v1.0.0.zip (1.2 MB)
+   - Kill app only
+   
+3. AutoCAD-2026-Mac-Launcher-v1.0.0-Full.zip (1.4 MB)
+   - Complete bundle with both apps and documentation
+   
+4. Source-Code-v1.0.0.zip
+   - Source code for developers
+
+Installation:
+-------------
+1. Download the zip file
+2. Extract (double-click)
+3. Move apps to Applications folder
+4. Edit password config files
+5. Launch AutoCAD 2026 Launcher
+
+Checksums:
+----------
+See checksums.txt for SHA256 hashes
+
+Requirements:
+-------------
+- macOS (tested on Sonoma+)
+- AutoCAD 2026 for Mac
+- Administrator privileges
+
+Support:
+--------
+See README_EN.md for troubleshooting
