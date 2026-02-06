@@ -27,7 +27,6 @@ A launcher application for AutoCAD 2026 on Mac with automatic license server man
 
 ### Kill AutoCAD
 - 💀 Force kill AutoCAD and License Server
-- 💾 Password manager (save & reuse)
 - 🔄 Kill 3x times to ensure termination
 - 📊 Display running processes detail
 - ✅ Verify result after kill
