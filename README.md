@@ -23,7 +23,6 @@ A launcher application for AutoCAD 2026 on Mac with automatic license server man
 - ✅ Detect & cleanup duplicate processes
 - ✅ Smart health check (process + port + TCP)
 - ✅ Retry mechanism (3 attempts)
-- ✅ Password manager (auto-save)
 - ✅ Automatic environment variables
 
 ### Kill AutoCAD

@@ -23,7 +23,6 @@ Aplikasi launcher untuk AutoCAD 2026 di Mac dengan manajemen license server otom
 - ✅ Cek duplikat proses & cleanup otomatis
 - ✅ Smart health check (proses + port + TCP)
 - ✅ Retry mechanism (3x percobaan)
-- ✅ Password manager (auto-save)
 - ✅ Environment variables otomatis
 
 ### Kill AutoCAD
