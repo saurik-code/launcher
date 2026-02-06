@@ -2,55 +2,55 @@
 
 🎨 **AutoCAD 2026 Launcher with License Server Management for macOS**
 
-Aplikasi launcher untuk AutoCAD 2026 di Mac dengan manajemen license server otomatis.
+A launcher application for AutoCAD 2026 on Mac with automatic license server management.
 
-## 📁 Isi Repository
+## 📁 Repository Contents
 
-| File/Folder | Deskripsi |
-|-------------|-----------|
-| `AutoCAD 2026 Launcher.app` | 🚀 Aplikasi launcher utama |
-| `Kill AutoCAD.app` | 💀 Aplikasi emergency kill |
-| `launch_autocad_server.sh` | 🔧 Script launcher (shell) |
-| `kill_autocad.sh` | 🔧 Script kill (shell) |
-| `README.txt` | 📘 Manual lengkap (Bahasa Indonesia) |
-| `SETUP_README.txt` | 📘 Setup & konfigurasi |
-| `KILL_README.txt` | 📘 Petunjuk Kill AutoCAD |
+| File/Folder | Description |
+|-------------|-------------|
+| `AutoCAD 2026 Launcher.app` | 🚀 Main launcher application |
+| `Kill AutoCAD.app` | 💀 Emergency kill application |
+| `launch_autocad_server.sh` | 🔧 Launcher shell script |
+| `kill_autocad.sh` | 🔧 Kill shell script |
+| `src/` | 📂 Source files for compilation |
+| `README.md` | 📘 Documentation (English) |
+| `README_ID.md` | 📘 Documentation (Indonesian) |
 
-## 🚀 Fitur
+## 🚀 Features
 
 ### AutoCAD 2026 Launcher
-- ✅ Auto-start license server jika belum berjalan
-- ✅ Cek duplikat proses & cleanup otomatis
-- ✅ Smart health check (proses + port + TCP)
-- ✅ Retry mechanism (3x percobaan)
+- ✅ Auto-start license server if not running
+- ✅ Detect & cleanup duplicate processes
+- ✅ Smart health check (process + port + TCP)
+- ✅ Retry mechanism (3 attempts)
 - ✅ Password manager (auto-save)
-- ✅ Environment variables otomatis
+- ✅ Automatic environment variables
 
 ### Kill AutoCAD
-- 💀 Force kill AutoCAD dan License Server
-- 💾 Password manager (simpan & reuse)
-- 🔄 Kill berulang 3x untuk memastikan
-- 📊 Tampilkan detail proses yang berjalan
-- ✅ Verifikasi hasil setelah kill
+- 💀 Force kill AutoCAD and License Server
+- 💾 Password manager (save & reuse)
+- 🔄 Kill 3x times to ensure termination
+- 📊 Display running processes detail
+- ✅ Verify result after kill
 
-## 📦 Instalasi
+## 📦 Installation
 
-### 1. Copy Aplikasi ke Applications
+### 1. Copy Apps to Applications
 ```bash
-# Copy ke folder Applications
+# Copy to Applications folder
 cp -R "AutoCAD 2026 Launcher.app" /Applications/
 cp -R "Kill AutoCAD.app" /Applications/
 ```
 
 ### 2. Setup License Server
 ```bash
-# Pastikan folder flexnetserver ada
+# Ensure flexnetserver folder exists
 sudo mkdir -p /usr/local/flexnetserver
 
-# Copy license file (jika belum ada)
+# Copy license file (if not exists)
 sudo cp license_backup_working.dat /usr/local/flexnetserver/license.dat
 
-# Set permission
+# Set permissions
 sudo chmod 755 /usr/local/flexnetserver
 sudo chmod 644 /usr/local/flexnetserver/license.dat
 ```
@@ -59,29 +59,113 @@ sudo chmod 644 /usr/local/flexnetserver/license.dat
 ```bash
 # Edit config file
 nano "/Applications/AutoCAD 2026 Launcher.app/Contents/Resources/password.conf"
-# Ganti: PASSWORD=nafaru
+# Change: PASSWORD=your_mac_password
 
-# Edit config Kill AutoCAD  
+# Edit Kill AutoCAD config  
 nano "/Applications/Kill AutoCAD.app/Contents/Resources/kill_password.conf"
-# Ganti: PASSWORD=nafaru
+# Change: PASSWORD=your_mac_password
 ```
 
-## 🖥️ Cara Penggunaan
+## 🖥️ Usage
 
-### Buka AutoCAD
-1. Double-click **AutoCAD 2026 Launcher** di Applications
-2. Tunggu notifikasi "License server berjalan"
-3. AutoCAD akan terbuka otomatis
+### Launch AutoCAD
+1. Double-click **AutoCAD 2026 Launcher** in Applications
+2. Wait for notification "License server running"
+3. AutoCAD will open automatically
 
-### Tutup AutoCAD (Emergency)
-1. Double-click **Kill AutoCAD** di Applications
-2. Lihat detail proses yang berjalan
-3. Klik **Lanjutkan**
-4. Masukkan password Mac (pertama kali)
-5. Tunggu konfirmasi sukses
-6. Buka lagi dengan Launcher
+### Emergency Kill (Freeze/Error)
+1. Double-click **Kill AutoCAD** in Applications
+2. View running processes detail
+3. Click **Continue**
+4. Enter Mac password (first time)
+5. Wait for success confirmation
+6. Relaunch with Launcher
 
-## 🔄 Alur Kerja
+## 🔧 Source Code & Compilation
+
+### Source Files Location
+```
+src/
+├── launcher.applescript      # AutoCAD Launcher source
+├── kill.applescript          # Kill AutoCAD source
+└── compile.sh                # Compilation script
+```
+
+### Modifying & Recompiling
+
+#### 1. Edit Source
+```bash
+# Edit launcher source
+nano src/launcher.applescript
+
+# Edit kill source
+nano src/kill.applescript
+```
+
+#### 2. Compile
+```bash
+# Make compile script executable
+chmod +x src/compile.sh
+
+# Run compilation
+./src/compile.sh
+
+# Or compile manually:
+
+# Compile Launcher
+rm -rf "/Applications/AutoCAD 2026 Launcher.app"
+osacompile -o "/Applications/AutoCAD 2026 Launcher.app" src/launcher.applescript
+
+# Copy icon
+cp "/Applications/Autodesk/AutoCAD 2026/AutoCAD 2026.app/Contents/Resources/acadlogo.icns" \
+    "/Applications/AutoCAD 2026 Launcher.app/Contents/Resources/applet.icns"
+
+# Compile Kill
+rm -rf "/Applications/Kill AutoCAD.app"
+osacompile -o "/Applications/Kill AutoCAD.app" src/kill.applescript
+
+# Copy icon
+cp "/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/AlertStopIcon.icns" \
+    "/Applications/Kill AutoCAD.app/Contents/Resources/applet.icns"
+```
+
+#### 3. Copy Resources
+```bash
+# Copy scripts
+cp launch_autocad_server.sh "/Applications/AutoCAD 2026 Launcher.app/Contents/Resources/"
+cp kill_autocad.sh "/Applications/Kill AutoCAD.app/Contents/Resources/"
+
+# Create config files
+echo "PASSWORD=nafaru" > "/Applications/AutoCAD 2026 Launcher.app/Contents/Resources/password.conf"
+chmod 600 "/Applications/AutoCAD 2026 Launcher.app/Contents/Resources/password.conf"
+
+echo "PASSWORD=nafaru" > "/Applications/Kill AutoCAD.app/Contents/Resources/kill_password.conf"
+chmod 600 "/Applications/Kill AutoCAD.app/Contents/Resources/kill_password.conf"
+```
+
+### AppleScript Syntax Reference
+
+#### Basic Dialog
+```applescript
+display dialog "Message" buttons {"Cancel", "OK"} default button "OK"
+```
+
+#### Run Shell Script
+```applescript
+do shell script "command" with administrator privileges
+```
+
+#### Display Notification
+```applescript
+display notification "Message" with title "Title"
+```
+
+#### Alert
+```applescript
+display alert "Title" message "Message" buttons {"OK"}
+```
+
+## 🔄 Workflow
 
 ### Normal Flow
 ```
@@ -98,7 +182,7 @@ User → Launch AutoCAD 2026 Launcher.app
 AutoCAD Freeze/Error
      → Launch Kill AutoCAD.app
      → Show running processes
-     → User clicks "Lanjutkan"
+     → User clicks "Continue"
      → Kill all processes (with sudo)
      → Verify all killed
      → Show success message
@@ -108,29 +192,29 @@ AutoCAD Freeze/Error
 
 ## 🔧 Troubleshooting
 
-### License Server Tidak Bisa Start
+### License Server Won't Start
 ```bash
-# Kill manual
+# Kill manually
 sudo pkill -9 -x lmgrd
 sudo pkill -9 -x adskflex
 
-# Start manual
+# Start manually
 cd /usr/local/flexnetserver
 sudo ./lmgrd -c ./license.dat
 ```
 
-### Port 27080 Sudah Digunakan
+### Port 27080 Already in Use
 ```bash
-# Cek apa yang pakai port
+# Check what's using the port
 sudo lsof -i :27080
 
-# Kill proses yang pakai port
+# Kill process using the port
 sudo kill -9 <PID>
 ```
 
-### Reset Semua
+### Reset Everything
 ```bash
-# Kill semua
+# Kill all
 sudo pkill -9 -f autocad
 sudo pkill -9 -x lmgrd
 sudo pkill -9 -x adskflex
@@ -147,15 +231,15 @@ for pid in $(sudo lsof -t -i :27080); do sudo kill -9 $pid; done
 - macOS (tested on macOS Sonoma+)
 - AutoCAD 2026 for Mac
 - FlexNet License Server (`/usr/local/flexnetserver/`)
-- Administrator privileges (untuk sudo)
+- Administrator privileges (for sudo)
 
 ## 🔒 Security
 
-- Password disimpan di file `password.conf` dengan permission 600
-- Hanya user yang bisa membaca password
-- Script menggunakan sudo dengan validasi
+- Password stored in `password.conf` with 600 permissions
+- Only user can read password
+- Script uses sudo with validation
 
-## 📝 File Konfigurasi
+## 📝 Configuration Files
 
 ### Launcher Config
 ```
@@ -174,13 +258,13 @@ for pid in $(sudo lsof -t -i :27080); do sudo kill -9 $pid; done
 
 ## 🛠️ Technical Details
 
-### Port yang Digunakan
+### Ports Used
 - **27080**: License Server (lmgrd)
 
-### Proses yang Dijalankan
+### Running Processes
 - `lmgrd`: License Manager Daemon
 - `adskflex`: Autodesk Vendor Daemon
-- `AutoCAD 2026.app/Contents/MacOS/AutoCAD`: AutoCAD utama
+- `AutoCAD 2026.app/Contents/MacOS/AutoCAD`: AutoCAD main
 
 ### Environment Variables
 ```bash
@@ -190,10 +274,11 @@ ADSKFLEX_LICENSE_FILE=27080@127.0.0.1
 
 ## 📄 License
 
-This project is for personal/educational use only.
+MIT License - See LICENSE file
 
-AutoCAD is a trademark of Autodesk, Inc.
-FlexNet is a trademark of Flexera Software.
+Note: AutoCAD is a trademark of Autodesk, Inc.
+FlexNet is a trademark of Flexera Software LLC.
+This project is not affiliated with Autodesk or Flexera.
 
 ## 🤝 Contributing
 
@@ -201,13 +286,13 @@ Feel free to fork and modify for your own use.
 
 ## 🐛 Issues
 
-Jika ada masalah:
-1. Jalankan diagnostic: `diagnose.sh`
-2. Cek log: `tail -f /tmp/autocad_launcher.log`
-3. Baca manual: `README.txt`
+If you have problems:
+1. Run diagnostic: Check `diagnose.sh`
+2. Check logs: `tail -f /tmp/autocad_launcher.log`
+3. Read manual: `README.txt`
 
 ---
 
-**Dibuat:** 6 Februari 2026  
-**Bahasa:** Indonesia  
+**Created:** February 6, 2026  
+**Language:** English / Indonesian  
 **Platform:** macOS
