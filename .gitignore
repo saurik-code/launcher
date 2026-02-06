@@ -1,0 +1,22 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Password files (keep secure)
+*.conf
+
+# Logs
+*.log
+/tmp/
+
+# Backup files
+*.backup
+*.backup.*
+
+# Xcode
+*.xcodeproj
+
+# Temporary
+*.tmp
+*.temp
